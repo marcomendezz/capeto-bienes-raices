@@ -1,25 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiKey = 'i3j3nteqd3mwuiow9hqgkq97qkyy6b'; // Reemplaza con tu API key real
-    const apiUrl = 'https://api.easybroker.com/v1/properties'; // Reemplaza con la URL de tu API
-
-    fetch(apiUrl, {
+    const options = {
+        method: 'GET',
         headers: {
-            'Authorization': `Bearer ${apiKey}`
+            accept: 'application/json',
+            'X-Authorization': 'i3j3nteqd3mwuiow9hqgkq97qkyy6b'
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const propertiesContainer = document.getElementById('properties');
-        data.forEach(property => {
-            const propertyElement = document.createElement('div');
-            propertyElement.className = 'property';
-            propertyElement.innerHTML = `
-                <h3>${property.name}</h3>
-                <p>${property.description}</p>
-                <p><strong>Price:</strong> ${property.price}</p>
-            `;
-            propertiesContainer.appendChild(propertyElement);
-        });
-    })
-    .catch(error => console.error('Error:', error));
+    };
+
+    fetch('https://api.easybroker.com/v1/properties?page=1&limit=20', options)
+        .then(response => response.json())
+        .then(response => {
+            const propertiesContainer = document.getElementById('properties');
+            response.content.forEach(property => {
+                const propertyElement = document.createElement('div');
+                propertyElement.className = 'property';
+                propertyElement.innerHTML = `
+                    <h3>${property.title}</h3>
+                    <img src="${property.title_image_full}" alt="${property.title}" style="width: 100%; height: auto;">
+                    <p>${property.location}</p>
+                    <p><strong>Price:</strong> ${property.operations[0].formatted_amount} ${property.operations[0].currency}</p>
+                    <p><strong>Bedrooms:</strong> ${property.bedrooms}</p>
+                    <p><strong>Bathrooms:</strong> ${property.bathrooms}</p>
+                    <p><strong>Parking Spaces:</strong> ${property.parking_spaces}</p>
+                `;
+                propertiesContainer.appendChild(propertyElement);
+            });
+        })
+        .catch(err => console.error(err));
 });
