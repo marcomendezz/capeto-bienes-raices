@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const apiKey = 'i3j3nteqd3mwuiow9hqgkq97qkyy6b'; // Reemplaza con tu API key real
-    const apiUrl = 'https://api.ejemplo.com/propertieshttps://api.easybroker.com/v1/properties?page=1&limit=20'; // Reemplaza con la URL de tu API
+    const apiUrl = 'https://api.easybroker.com/v1/properties'; // Reemplaza con la URL de tu API
 
     fetch(apiUrl, {
         headers: {
