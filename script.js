@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const options = {
         method: 'GET',
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('https://api.easybroker.com/v1/properties?page=1&limit=20', options)
         .then(response => response.json())
         .then(response => {
+            console.log(response); // Verificar que los datos están siendo recibidos
             const propertiesContainer = document.getElementById('properties');
             response.content.forEach(property => {
                 const propertyElement = document.createElement('div');
@@ -28,3 +30,4 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(err => console.error(err));
 });
+z
